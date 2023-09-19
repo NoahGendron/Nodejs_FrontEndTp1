@@ -1,0 +1,15 @@
+{
+    "name": "Bookmarks Manager",
+    "short_name": "BookmarksManager",
+    "icons": [
+        {
+            "src": "https://cdn.glitch.global/728b0641-65b1-4d60-9177-92ff2cc2f95c/bookmark_logo%20(1).png?v=1695065504505",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
