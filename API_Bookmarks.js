@@ -1,4 +1,4 @@
-const API_URL = "https://honored-blush-crabapple.glitch.me/api/favoris"; //"http://localhost:5000/api/contacts";
+const API_URL = "https://responsible-crystal-piccolo.glitch.me/api/favoris"; //"http://localhost:5000/api/contacts";
 //const API_URL = "https://api-server-5.glitch.me/api/bookmarks"; //"http://localhost:5000/api/contacts";
 
 
@@ -47,6 +47,7 @@ function API_SaveBookmark(fav, create) {
     });
   });
 }
+
 function API_DeleteContact(id) {
   return new Promise((resolve) => {
     $.ajax({

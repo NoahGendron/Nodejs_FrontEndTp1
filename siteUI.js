@@ -32,14 +32,13 @@ function checkCatButtons() {
   let buttons = document.querySelectorAll(".menuItemLayout");
 
   buttons.forEach((button) => {
-    if (button.id != "aboutCmd") {
+    if (button.Id != "aboutCmd") {
       button.addEventListener("click", handleCatButtonClick);
     }
   });
 }
 
 function handleCatButtonClick() {
-
   let buttons = document.querySelectorAll(".menuItemLayout");
   buttons.forEach((otherButton) => {
     otherButton.querySelector("i").classList.remove("fa-fw", "fa-check");
@@ -199,16 +198,20 @@ async function renderDeleteContactForm(id) {
   $("#createContact").hide();
   $("#abort").show();
   $("#actionTitle").text("Retrait");
-  console.log(id);
+  
+  
+  
   let contact = await API_GetContact(id);
-  console.log(contact);
+  
   eraseContent();
   if (contact !== null) {
+  
+
     $("#content").append(`
         <div class="contactdeleteForm">
             <h4>Effacer le favori suivant?</h4>
             <br>
-            <div class="contactRow" contact_id=${contact.Id}">
+            <div class="contactRow" contact_id=${id}">
                 <div class="contactContainer">
                     <div class="contactLayout">
                         <div class="contactName">${contact.Title}</div>
@@ -224,7 +227,8 @@ async function renderDeleteContactForm(id) {
         `);
     $("#deleteContact").on("click", async function () {
       showWaitingGif();
-      let result = await API_DeleteContact(contact.Id);
+
+      let result = await API_DeleteContact(id);
       if (result) renderBookmarks();
       else renderError("Une erreur est survenue!");
     });
@@ -245,21 +249,21 @@ function newContact() {
 }
 
 function renderContactForm(fav = null) {
-  console.log("hallo");
-
   $("#createContact").hide();
   $("#abort").show();
   eraseContent();
   let create = fav == null;
   if (create) fav = newContact();
   $("#actionTitle").text(create ? "Création" : "Modification");
+  
+
   $("#content").append(`
         <form class="form" id="favForm">
             <img 
             style="background-image: url('https://cdn.glitch.global/728b0641-65b1-4d60-9177-92ff2cc2f95c/bookmark_logo%20(1).png?v=1695065504505');"
             class="big-favicon" id="favLogo" alt="" title="Gestionnaire de favoris"><br>
 
-            <input type="hidden" name="Id" value="${fav}"/>
+            <input type="hidden" name="id" value="${fav.Id}"/>
 
             <label for="Title" class="form-label">Titre </label>
             <input 
@@ -312,8 +316,12 @@ function renderContactForm(fav = null) {
   $("#favForm").on("submit", async function (event) {
     event.preventDefault();
     let contact = getFormData($("#favForm"));
+    console.log(contact);
+    console.log(parseInt(contact.Id));
+
     contact.Id = parseInt(contact.Id);
     showWaitingGif();
+    console.log(contact.Id);
     let result = await API_SaveBookmark(contact, create);
     if (result) renderBookmarks();
     else renderError("Une erreur est survenue!");
@@ -333,6 +341,7 @@ function getFormData($form) {
 }
 
 function renderContact(contact) {
+  
   return $(`
      <div class="contactRow" contact_id=${contact.Id}">
         <div class="contactContainer">
