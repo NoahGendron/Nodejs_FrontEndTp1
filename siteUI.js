@@ -215,7 +215,7 @@ async function renderDeleteContactForm(id) {
                 <div class="contactContainer">
                     <div class="contactLayout">
                         <div class="contactName">${contact.Title}</div>
-                        <div class="contactPhone">${contact.Url}</div>
+                        <div class="contactPhone">${contact.URL}</div>
                         <div class="contactEmail">${contact.Category}</div>
                     </div>
                 </div>  
@@ -241,9 +241,9 @@ async function renderDeleteContactForm(id) {
 }
 function newContact() {
   let fav = {};
-  fav.Id = 0;
+  fav.id = 0;
   fav.Title = "";
-  fav.Url = "";
+  fav.URL = "";
   fav.Category = "";
   return fav;
 }
@@ -263,7 +263,7 @@ function renderContactForm(fav = null) {
             style="background-image: url('https://cdn.glitch.global/728b0641-65b1-4d60-9177-92ff2cc2f95c/bookmark_logo%20(1).png?v=1695065504505');"
             class="big-favicon" id="favLogo" alt="" title="Gestionnaire de favoris"><br>
 
-            <input type="hidden" name="id" value="${fav.Id}"/>
+            <input type="hidden" name="id" value="${fav.id}"/>
 
             <label for="Title" class="form-label">Titre </label>
             <input 
@@ -276,7 +276,7 @@ function renderContactForm(fav = null) {
                 InvalidMessage="Le titre comporte un caractère illégal" 
                 value="${fav.Title}"
             />
-            <label for="Url" class="form-label">Url </label>
+            <label for="URL" class="form-label">URL </label>
             <input
                 class="form-control URL"
                 name="URL"
@@ -285,7 +285,7 @@ function renderContactForm(fav = null) {
                 required
                 RequireMessage="Veuillez entrer l'url d'un site favori" 
                 InvalidMessage="Veuillez entrer un url valide"
-                value="${fav.Url}" 
+                value="${fav.URL}" 
             />
             <label for="Category" class="form-label">Catégorie </label>
             <input 
@@ -317,11 +317,11 @@ function renderContactForm(fav = null) {
     event.preventDefault();
     let contact = getFormData($("#favForm"));
     console.log(contact);
-    console.log(parseInt(contact.Id));
+    console.log(parseInt(contact.id));
 
-    contact.Id = parseInt(contact.Id);
+    contact.id = parseInt(contact.id);
     showWaitingGif();
-    console.log(contact.Id);
+    console.log(contact.id);
     let result = await API_SaveBookmark(contact, create);
     if (result) renderBookmarks();
     else renderError("Une erreur est survenue!");
@@ -343,19 +343,19 @@ function getFormData($form) {
 function renderContact(contact) {
   
   return $(`
-     <div class="contactRow" contact_id=${contact.Id}">
+     <div class="contactRow" contact_id=${contact.id}">
         <div class="contactContainer">
             <div class="contactLayout">
                 <span class="contactName">  
                 
                 <img class="big-favicon" 
-                  style="background-image: url('http://www.google.com/s2/favicons?sz=64&domain=${contact.Url}');">${contact.Title}</span>
+                  style="background-image: url('http://www.google.com/s2/favicons?sz=64&domain=${contact.URL}');">${contact.Title}</span>
                 
-                <a href=${contact.Url}>${contact.Category}</a>
+                <a href=${contact.URL}>${contact.Category}</a>
             </div>
             <div class="contactCommandPanel">
-                <span class="editCmd cmdIcon fa fa-pencil" editContactId="${contact.Id}" title="Modifier ${contact.Title}"></span>
-                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="${contact.Id}" title="Effacer ${contact.Title}"></span>
+                <span class="editCmd cmdIcon fa fa-pencil" editContactId="${contact.id}" title="Modifier ${contact.Title}"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="${contact.id}" title="Effacer ${contact.Title}"></span>
             </div>
         </div>
     </div>           
